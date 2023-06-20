@@ -55,7 +55,8 @@ cipher@SSH = -*-CBC
 
 # 'RSA' is intentionally before DHE ciphersuites, as the DHE ciphersuites have
 # interoperability issues in TLS.
-key_exchange = ECDHE RSA DHE DHE-RSA PSK DHE-PSK ECDHE-PSK ECDHE-GSS DHE-GSS
+#key_exchange = ECDHE RSA DHE DHE-RSA PSK DHE-PSK ECDHE-PSK ECDHE-GSS DHE-GSS
+key_exchange = ECDHE DHE DHE-RSA PSK DHE-PSK ECDHE-PSK
 
 protocol@TLS = TLS1.3 TLS1.2 DTLS1.2
 protocol@IKE = IKEv2
