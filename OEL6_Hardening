@@ -1,0 +1,8 @@
+#encryption-algorithms
+Ciphers aes128-ctr,aes192-ctr,aes256-ctr
+ 
+#mac_algorithms:
+MACs hmac-sha2-256,hmac-sha2-512
+ 
+#Key Exchange Algorithms
+KexAlgorithms diffie-hellman-group-exchange-sha256,ecdh-sha2-nistp256,ecdh-sha2-nistp384
