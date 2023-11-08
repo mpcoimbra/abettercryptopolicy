@@ -19,6 +19,6 @@ RHEL/OEL/CentOS 7:
 RHEL/OEL/CentOS 6:
 - Download content from this repo;
 - do: cat OEL6_Hardening >> /etc/ssh/sshd_config
-- systemctl restart sshd
+- service sshd restart
 
 
