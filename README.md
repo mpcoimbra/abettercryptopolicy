@@ -1,7 +1,7 @@
 # abettercryptopolicy
 This is just an enhancement for RHEL-based distros crypto-policies.
 
-This crypto-policy applies to Red Hat based distros, version 8 only. Anything else is at your own risk.
+This crypto-policy applies to Red Hat based distros, version 8 and 9 only. Anything else is at your own risk.
 
 In order to use this policy:
 - Download content from this repo;
