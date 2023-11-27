@@ -1,0 +1,9 @@
+## NOTES
+# MACs - All SHA1 were removed.
+# Key Exchange Algorithms - Debian 11 - Every unsecure algorithm was removed, including the NIST which is also unsecure.
+# Just add these two lines to /etc/sshd_config and restart sshd.
+
+#MAC
+MACs hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha2-256,hmac-sha2-512
+#Key Exchange Algorithms - Debian 12
+KexAlgorithms sntrup761x25519-sha512@openssh.com,curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,diffie-hellman-group14-sha256
