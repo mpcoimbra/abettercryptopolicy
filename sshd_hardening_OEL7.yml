@@ -6,67 +6,67 @@
 
     - name: Backup SSHD config with current timestamp
       copy:
-        src: /etc/ssh/sshd_config.test
-        dest: "/etc/ssh/sshd_config.test{{ ansible_date_time.iso8601_basic }}"
+        src: /etc/ssh/sshd_config
+        dest: "/etc/ssh/sshd_config{{ ansible_date_time.iso8601_basic }}"
         backup: yes
         owner: root
         group: root
         mode: 0600
-      when: (ansible_distribution == OracleLinux" and ansible_distribution_major_version == "7") or
+      when: (ansible_distribution == "OracleLinux" and ansible_distribution_major_version == "7") or
             (ansible_distribution == "CentOS" and ansible_distribution_major_version == "7")
  
     - name: Set SSH KexAlgorithms
       lineinfile:
-        path: /etc/ssh/sshd_config.test
+        path: /etc/ssh/sshd_config
         regexp: '^KexAlgorithms'
         state: present
         line: 'KexAlgorithms diffie-hellman-group14-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,diffie-hellman-group-exchange-sha256,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,curve25519-sha256,curve25519-sha256@libssh.org'
         insertbefore: '^Include'
-      when: (ansible_distribution == OracleLinux" and ansible_distribution_major_version == "7") or 
+      when: (ansible_distribution == "OracleLinux" and ansible_distribution_major_version == "7") or 
             (ansible_distribution == "CentOS" and ansible_distribution_major_version == "7")
       register: sshd_modified
 
     - name: Set SSH Ciphers
       lineinfile:
-        path: /etc/ssh/sshd_config.test
+        path: /etc/ssh/sshd_config
         regexp: '^Ciphers'
         state: present
         insertbefore: '^Include'
         line: 'Ciphers aes128-ctr,aes192-ctr,aes256-ctr'
-      when: (ansible_distribution == OracleLinux" and ansible_distribution_major_version == "7") or 
+      when: (ansible_distribution == "OracleLinux" and ansible_distribution_major_version == "7") or 
             (ansible_distribution == "CentOS" and ansible_distribution_major_version == "7")
       register: sshd_modified
 
     - name: Set SSH MACs
       lineinfile:
-        path: /etc/ssh/sshd_config.test
+        path: /etc/ssh/sshd_config
         regexp: '^MACs'
         state: present
         insertbefore: '^Include'
         line: 'MACs hmac-sha2-256,hmac-sha2-512,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com'
-      when: (ansible_distribution == OracleLinux" and ansible_distribution_major_version == "7") or 
+      when: (ansible_distribution == "OracleLinux" and ansible_distribution_major_version == "7") or 
             (ansible_distribution == "CentOS" and ansible_distribution_major_version == "7")
       register: sshd_modified
 
     - name: Add a note to sshd_config 
       lineinfile:
-        path: /etc/ssh/sshd_config.test
+        path: /etc/ssh/sshd_config
         state: present
         regexp: '^Ansible_SSHD'
         insertbefore: '^KexAlgorithms'
         line: '#Ansible_SSHD configuration done by Ansible Server. Please do NOT modify.'
-      when: (ansible_distribution == OracleLinux" and ansible_distribution_major_version == "7") or 
+      when: (ansible_distribution == "OracleLinux" and ansible_distribution_major_version == "7") or 
             (ansible_distribution == "CentOS" and ansible_distribution_major_version == "7") 
       register: sshd_modified
 
     - name: Remove remaining existing configuration for Ciphers, MACs, or KexAlgorithms
       ansible.builtin.replace:
-        path: /etc/ssh/sshd_config.test
+        path: /etc/ssh/sshd_config
         after: 'Include'
         regexp: '^\s*(Ciphers|MACs|KexAlgorithms)\s.*$'
         replace: '##Existing configuration removed by Ansible.##'
       register: sshd_modified
-      when: (ansible_distribution == OracleLinux" and ansible_distribution_major_version == "7") or
+      when: (ansible_distribution == "OracleLinux" and ansible_distribution_major_version == "7") or
             (ansible_distribution == "CentOS" and ansible_distribution_major_version == "7")
 
 
