@@ -4,11 +4,7 @@
 # - Key Exchange Algorithms are in a reasonable security level and should be left untouched;
 # - MACs: only macs with SHA2 >= 256 were left. 
 
-# A reasonable default for today's standards.
-# It should provide 112-bit security.
-# SHA1 is allowed in HMAC where collision resistance does not matter.
-
-# MACs: all HMAC with SHA1 or better + all modern MACs (Poly1305 etc)
+# MACs: all HMAC with SHA2 or better + all modern MACs (Poly1305 etc)
 # Curves: all prime >= 255 bits (including Bernstein curves)
 # Signature algorithms: with SHA-224 hash or better (no DSA)
 # Ciphers: >= 128-bit key, >= 128-bit block (AES, ChaCha20)
@@ -18,11 +14,12 @@
 # TLS protocols: TLS >= 1.2, DTLS >= 1.2
 
 mac = HMAC-SHA2-256 HMAC-SHA2-384 HMAC-SHA2-512
+mac@Kerberos = HMAC-SHA2-384 HMAC-SHA2-256 AEAD HMAC-SHA2-512
 
 group = X25519 X448 SECP256R1 SECP384R1 SECP521R1 \
     FFDHE-2048 FFDHE-3072 FFDHE-4096 FFDHE-6144 FFDHE-8192
 
-hash = SHA2-256 SHA2-384 SHA2-512 SHA3-256 SHA3-384 SHA3-512 SHA2-224
+hash = SHA2-256 SHA2-384 SHA2-512 SHA3-256 SHA3-384 SHA3-512 SHA2-224 SHAKE-256
 
 sign = ECDSA-SHA3-256 ECDSA-SHA2-256 ECDSA-SHA2-256-FIDO \
        ECDSA-SHA3-384 ECDSA-SHA2-384 \
@@ -71,4 +68,4 @@ sha1_in_certs = 0
 
 arbitrary_dh_groups = 1
 ssh_certs = 1
-ssh_etm = 1
+etm@SSH = ANY
