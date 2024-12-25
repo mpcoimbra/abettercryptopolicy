@@ -1,3 +1,5 @@
+##This is now deprecated. You should not be using RHEL6 anymore.
+
 #encryption-algorithms
 Ciphers aes128-ctr,aes192-ctr,aes256-ctr
  
